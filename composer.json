@@ -13,8 +13,10 @@
         }
     ],
     "require": {
-        "php": ">=7.0",
+        "php": ">=7.4",
         "ext-json": "*",
-        "psy/psysh": "^0.12.4"
-    }
+        "psy/psysh": "*"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }

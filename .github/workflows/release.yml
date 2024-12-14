@@ -1,0 +1,77 @@
+name: Manual Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g., v1.0.0)'
+        required: true
+        type: string
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: [ '7.4', '8.0', '8.1', '8.2', '8.3' ]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup PHP for Current Version
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          tools: composer
+
+      - name: Remove Vendor and Composer Lock
+        run: |
+          rm -rf vendor composer.lock
+
+      - name: Install Dependencies
+        run: composer install --no-dev
+
+      - name: Setup PHP for Box
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer
+
+      - name: Install Box Globally
+        run: |
+          composer global require humbug/box
+        env:
+          COMPOSER_HOME: ${{ runner.temp }}/composer
+
+      - name: Add Composer Global Bin to PATH
+        run: echo "$COMPOSER_HOME/vendor/bin" >> $GITHUB_PATH
+        env:
+          COMPOSER_HOME: ${{ runner.temp }}/composer
+
+      - name: Compile with Box
+        run: |
+          box compile
+        env:
+          COMPOSER_HOME: ${{ runner.temp }}/composer
+
+      - name: Rename PHAR File
+        run: |
+          mv client.phar client-${{ matrix.php-version }}.phar
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ github.event.inputs.version }}
+          release_name: ${{ github.event.inputs.version }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./client-${{ matrix.php-version }}.phar
+          asset_name: client-${{ matrix.php-version }}.phar
+          asset_content_type: application/octet-stream
