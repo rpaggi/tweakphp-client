@@ -4,12 +4,13 @@ namespace TweakPHP\Client;
 
 use TweakPHP\Client\Loaders\ComposerLoader;
 use TweakPHP\Client\Loaders\LaravelLoader;
+use TweakPHP\Client\Loaders\LoaderInterface;
 
 class Loader
 {
     /**
      * @param string $path
-     * @return null|\TweakPHP\Client\Loaders\LoaderInterface
+     * @return null|LoaderInterface
      */
     public static function load(string $path)
     {

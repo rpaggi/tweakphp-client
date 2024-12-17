@@ -1,10 +1,10 @@
-name: Manual Release
+name: Release
 
 on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version to release (e.g., v1.0.0)'
+        description: "Version"
         required: true
         type: string
 
@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-version: [ '7.4', '8.0', '8.1', '8.2', '8.3' ]
+        php-version: ["7.4", "8.0", "8.1", "8.2", "8.3"]
 
     steps:
       - name: Checkout Repository
@@ -59,7 +59,7 @@ jobs:
       - name: Setup PHP for Box
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: "8.2"
           tools: composer
 
       - name: Install Box Globally

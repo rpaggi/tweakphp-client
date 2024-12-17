@@ -4,7 +4,7 @@ namespace TweakPHP\Client\Loaders;
 
 use Throwable;
 
-class LaravelLoader extends BaseLoader
+class LaravelLoader extends ComposerLoader
 {
     private $app;
 
@@ -13,7 +13,7 @@ class LaravelLoader extends BaseLoader
      */
     public function __construct(string $path)
     {
-        require $path . '/vendor/autoload.php';
+        parent::__construct($path);
         $this->app = require_once $path . '/bootstrap/app.php';
         $this->app->make('Illuminate\Contracts\Console\Kernel')->bootstrap();
         $classAliases = require $path . '/vendor/composer/autoload_classmap.php';
