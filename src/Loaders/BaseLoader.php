@@ -6,6 +6,7 @@ use Psy\Configuration;
 use Psy\VersionUpdater\Checker;
 use TweakPHP\Client\OutputModifiers\CustomOutputModifier;
 use TweakPHP\Client\Tinker;
+use Psy\Shell;
 
 abstract class BaseLoader implements LoaderInterface
 {
@@ -54,5 +55,10 @@ abstract class BaseLoader implements LoaderInterface
         $output = $this->tinker->execute($code);
 
         return trim($output);
+    }
+
+    protected function getShell(): Shell
+    {
+        return $this->tinker->getShell();
     }
 }
