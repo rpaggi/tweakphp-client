@@ -30,7 +30,6 @@ class ClassAliasAutoloader
     /**
      * Register a new alias loader instance.
      *
-     * @param  \Psy\Shell  $shell
      * @param  string  $classMapPath
      * @return static
      */
@@ -44,7 +43,6 @@ class ClassAliasAutoloader
     /**
      * Create a new alias loader instance.
      *
-     * @param  \Psy\Shell  $shell
      * @param  string  $classMapPath
      * @return void
      */
@@ -68,7 +66,6 @@ class ClassAliasAutoloader
         }
     }
 
-    
     /**
      * Get the class "basename" of the given object / class.
      *

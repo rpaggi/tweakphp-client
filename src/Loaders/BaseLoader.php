@@ -3,10 +3,10 @@
 namespace TweakPHP\Client\Loaders;
 
 use Psy\Configuration;
+use Psy\Shell;
 use Psy\VersionUpdater\Checker;
 use TweakPHP\Client\OutputModifiers\CustomOutputModifier;
 use TweakPHP\Client\Tinker;
-use Psy\Shell;
 
 abstract class BaseLoader implements LoaderInterface
 {

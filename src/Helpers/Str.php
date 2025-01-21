@@ -2,7 +2,8 @@
 
 namespace TweakPHP\Client\Helpers;
 
-class Str{
+class Str
+{
     /**
      * Determine if a given string contains a given substring.
      *

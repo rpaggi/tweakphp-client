@@ -7,7 +7,9 @@ use TweakPHP\Client\Helpers\ClassAliasAutoloader;
 class LaravelLoader extends ComposerLoader
 {
     private $app;
+
     private $loader;
+
     private $path;
 
     public static function supports(string $path): bool
@@ -16,11 +18,11 @@ class LaravelLoader extends ComposerLoader
     }
 
     public function init(): void
-    {   
+    {
         parent::init();
-        
+
         $this->loader = ClassAliasAutoloader::register(
-            $this->getShell(), $this->path."/vendor/composer/autoload_classmap.php"
+            $this->getShell(), $this->path.'/vendor/composer/autoload_classmap.php'
         );
     }
 
